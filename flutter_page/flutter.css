@@ -146,6 +146,9 @@ html, body {
 }
 
 .text-one {
+  text-align: center;
+  justify-content: center;
+  display: flex;
   color: #ffffff;
   font-size: clamp(1.2rem, 2.5vw, 1.8rem);
   margin: 0 0 2% 0;
