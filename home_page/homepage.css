@@ -2,16 +2,17 @@ html, body {
   height: 100%;
   margin: 0;
 }
+
 .banner-text{
   position: absolute;
   left: 50%;
   margin-top: 7vw;
-  transform: translate(-50%, -50%); /* centers both horizontally & vertically */
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 35px;
+  font-size: clamp(1rem, 3.5vw, 2.2rem); /* responsive font size */
   font-family: 'Press Start 2P', Consolas, monospace;
 }
 
@@ -44,13 +45,13 @@ html, body {
 /* wallpaper toggle (top-left) */
 .bg-toggle {
   position: fixed;
-  top: 12px;
-  left: 12px;
+  top: 1.2vh;
+  left: 1.2vw;
   z-index: 40;
 
   /* pill dimensions */
-  width: 62px;
-  height: 32px;
+  width: clamp(48px, 5vw, 62px);
+  height: clamp(26px, 3vh, 32px);
   padding: 0;
   border: 0;
   border-radius: 999px;
@@ -61,18 +62,17 @@ html, body {
   cursor: pointer;
   transition: background .2s ease, box-shadow .12s ease, transform .12s ease;
   display: inline-block;
-  position: fixed;
 }
 
 /* knob */
 .bg-toggle::before {
   content: "";
   position: absolute;
-  left: 13px;
+  left: 0.4vw;
   top: 50%;
   transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
+  width: clamp(20px, 2.2vw, 24px);
+  height: clamp(20px, 2.2vw, 24px);
   border-radius: 50%;
   background: #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.35);
@@ -86,7 +86,7 @@ html, body {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
 }
 .bg-toggle[aria-pressed="true"]::before {
-  transform: translateY(-50%) translateX(24px);
+  transform: translateY(-50%) translateX(2vw);
 }
 
 /* focus state for accessibility */
@@ -104,7 +104,7 @@ html, body {
   z-index: 1;
 }
 
-/* shared block base (keeps your original sizing & positioning) */
+/* shared block base */
 .block-one,
 .block-two,
 .block-three {
@@ -116,30 +116,20 @@ html, body {
   align-items:center;
   justify-content:center;
   border-radius:10%;
-  overflow:visible; /* allow pseudo elements to extend */
+  overflow:visible;
   transition: all .5s ease;
   cursor: pointer;
-  /* subtle inner glass so content area still visible */
   background: rgba(255,255,255,0.02);
   box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   backdrop-filter: blur(8px);
 }
 
-/* keep your original placement for the two blocks */
+/* block positioning */
 .block-one { margin-top: 3.5vw; margin-left: 1vw; }
-.block-two { margin-top: 3.5vw; margin-left: 42vw; }
-/* adjusted placement for third block so it doesn't leak off the page */
-.block-three { margin-top: 3.5vw; margin-left: 79vw; }
+.block-two { margin-top: 3.5vw; margin-left: 40vw; }
+.block-three { margin-top: 3.5vw; margin-left: 76vw; }
 
-/* responsive adjustments to keep block inside viewport */
-@media (max-width: 1200px){
-  .block-three { margin-left: 65vw; }
-}
-@media (max-width: 900px){
-  .block-three { margin-left: auto; }
-}
-
-/* gradient skewed layers (main visual effect) */
+/* gradient skewed layers */
 .block-one::before,
 .block-one::after,
 .block-two::before,
@@ -149,7 +139,7 @@ html, body {
   content: '';
   position: absolute;
   top: 0;
-  left: 50px;
+  left: 25%;
   width: 50%;
   height: 100%;
   border-radius: 8px;
@@ -159,7 +149,7 @@ html, body {
   z-index: 0;
 }
 
-/* glow/blur layer (after) */
+/* glow/blur layer */
 .block-one::after,
 .block-two::after,
 .block-three::after{
@@ -186,8 +176,8 @@ html, body {
 .block-three:hover::before,
 .block-three:hover::after {
   transform: skewX(0deg);
-  left: 20px;
-  width: calc(100% - 90px);
+  left: 10%;
+  width: 80%;
 }
 
 /* subtle highlight overlays */
@@ -214,37 +204,37 @@ html, body {
 .block-one > .shine::before,
 .block-two > .shine::before,
 .block-three > .shine::before {
-  top:-50px; left:50px; width:0; height:0;
+  top: -25%; left: 25%; width:0; height:0;
 }
 .block-one > .shine::after,
 .block-two > .shine::after,
 .block-three > .shine::after {
-  bottom:-50px; right:50px; width:0; height:0;
+  bottom: -25%; right: 25%; width:0; height:0;
 }
 .block-one:hover > .shine::before,
 .block-two:hover > .shine::before,
 .block-three:hover > .shine::before {
-  top:-50px; left:50px; width:100px; height:100px; opacity:1;
+  top: -25%; left: 25%; width: 50%; height: 50%; opacity:1;
 }
 .block-one:hover > .shine::after,
 .block-two:hover > .shine::after,
 .block-three:hover > .shine::after {
-  bottom:-50px; right:50px; width:100px; height:100px; opacity:1;
+  bottom: -25%; right: 25%; width: 50%; height: 50%; opacity:1;
 }
 
-/* content area inside the block (if you add text later) */
+/* content area inside the block */
 .block-one .content,
 .block-two .content,
 .block-three .content{
-  position:relative; z-index:6; padding:18px; color:#fff; text-align:center;
+  position:relative; z-index:6; padding: 2%; color:#fff; text-align:center;
   background: rgba(255,255,255,0.03); border-radius:6px;
   transition: all .5s ease;
 }
 .block-one:hover .content,
 .block-two:hover .content,
 .block-three:hover .content {
-  transform: translateX(-20px);
-  padding: 30px;
+  transform: translateX(-10%);
+  padding: 4%;
 }
 
 /* ensure nothing else overlays pseudo elements */
@@ -252,16 +242,29 @@ html, body {
 .block-two > *,
 .block-three > * { position: relative; z-index: 6; }
 
-/* responsive fallback: stack blocks vertically on small screens */
-@media (max-width: 900px){
-  .block-one, .block-two, .block-three {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 4vw;
-    width: 80vw;
-    height: 50vw;
-  }
+/* Images inside blocks - responsive sizing */
+.profile-pic,
+.csharp-logo,
+.flutter-logo,
+.unity-logo {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+}
+
+/* make the link wrappers behave like the old blocks */
+.block-two-link,
+.block-three-link {
+  display: contents;
+  text-decoration: none;
+}
+.block-two-link .block-two,
+.block-three-link .block-three {
+  cursor: pointer;
+}
+.block-two-link .block-two img,
+.block-three-link .block-three img {
+  cursor: pointer;
 }
 
 /* game-style font for the banner title */
@@ -269,11 +272,43 @@ html, body {
 
 .banner > .banner-text {
   font-family: 'Press Start 2P', Consolas, monospace;
-  letter-spacing: 1px; /* tweak for readability */
+  letter-spacing: 0.1em;
   font-weight: 400;
 }
 
-/* if you prefer a different vibe, replace the import with Orbitron:
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-and set font-family: 'Orbitron', system-ui, sans-serif;
-*/
+/* Responsive: stack blocks vertically on smaller screens */
+@media (max-width: 900px) {
+  .block-one,
+  .block-two,
+  .block-three {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8vh;
+    width: 60vw;
+    height: 60vw;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .block-one { margin-top: 15vh; }
+  
+  .banner-text {
+    font-size: clamp(0.8rem, 2.5vw, 1.5rem);
+    margin-top: 10vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .block-one,
+  .block-two,
+  .block-three {
+    width: 70vw;
+    height: 70vw;
+    margin-top: 6vh;
+  }
+
+  .banner-text {
+    font-size: clamp(0.7rem, 2vw, 1.2rem);
+  }
+}
