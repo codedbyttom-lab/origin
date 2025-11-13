@@ -8,7 +8,7 @@
       "type": "chrome",
       "request": "launch",
       "name": "Launch Chrome against localhost",
-      "url": "c:/Portfolio/Design/flutter.html",
+      "url": "C:\\Portfolio\\Design\\home_page\\homepage.html",
       "webRoot": "${workspaceFolder}"
     }
   ]

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flutter Page</title>
+  <link rel="stylesheet" href="flutter.css">
+</head>
+
+<body>
+
+  <!-- background stays as a separate element behind content -->
+  <div class="background" aria-hidden="true" data-theme="dark">
+    <img class="bg-image bg-image--dark" src="backgrounds/dark_background.png" alt="Background Image">
+    <img class="bg-image bg-image--light" src="backgrounds/light_background.png" alt="Light Background Image">
+  </div>
+
+  <!-- wallpaper toggle (top-left) -->
+  <button id="bg-toggle" class="bg-toggle" aria-pressed="false" title="Toggle wallpaper">
+    <span class="visually-hidden">Toggle wallpaper</span>☼
+  </button>
+
+  <!-- home button (below wallpaper toggle) -->
+  <a href="../home_page/homepage.html" class="home-btn" title="Go to homepage">
+    <span class="visually-hidden">Home</span>🏠
+  </a>
+
+  <!-- content sits on top of background -->
+  <div class="block-one">
+    <p class="text-one">About Project</p>
+    <p class="text-two">
+      VoiceCare is an innovative mobile healthcare application I developed to support visually impaired individuals in
+      managing their healthcare needs independently. The system leverages voice technology to remove visual barriers,
+      allowing users to perform essential tasks such as registration, login, and appointment booking entirely through
+      Speech-to-Text (STT) and Text-to-Speech (TTS) interaction. Built with Flutter and powered by Firebase Cloud
+      Services, VoiceCare provides secure authentication, real-time data storage, and seamless synchronization between
+      user and admin functions.
+      The project focuses on accessibility-first design, featuring audio prompts, glowing focus indicators, and
+      intelligent voice feedback to ensure a fully navigable experience without sight. By bridging healthcare and
+      assistive technology, VoiceCare not only enhances digital inclusion but also aligns with the principles of
+      universal design and equal access proving that technology can empower independence, dignity, and confidence for
+      visually impaired users.
+    </p>
+  </div>
+
+  <div class="block-two">
+    <!-- Slideshow -->
+    <div class="slideshow" aria-roledescription="carousel">
+      <div class="slides">
+        <div class="slide">
+          <img src="../app_screenshots//Picture1.jpg" alt="App screenshot 1">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture2.jpg" alt="App screenshot 2">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture3.jpg" alt="App screenshot 3">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture4.jpg" alt="App screenshot 4">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture5.jpg" alt="App screenshot 5">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture6.jpg" alt="App screenshot 6">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture7.jpg" alt="App screenshot 7">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture8.jpg" alt="App screenshot 8">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture9.jpg" alt="App screenshot 9">
+        </div>
+        <div class="slide">
+          <img src="../app_screenshots/Picture10.jpg" alt="App screenshot 10">
+        </div>
+      </div>
+
+      <button class="slideshow-btn prev" aria-label="Previous slide">‹</button>
+      <button class="slideshow-btn next" aria-label="Next slide">›</button>
+
+      <div class="slideshow-indicators" role="tablist" aria-label="Slide indicators">
+        <button class="indicator" data-slide="0" aria-label="Go to slide 1"></button>
+        <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+        <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+        <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+        <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
+        <button class="indicator" data-slide="5" aria-label="Go to slide 6"></button>
+        <button class="indicator" data-slide="6" aria-label="Go to slide 7"></button>
+        <button class="indicator" data-slide="7" aria-label="Go to slide 8"></button>
+        <button class="indicator" data-slide="8" aria-label="Go to slide 9"></button>
+        <button class="indicator" data-slide="9" aria-label="Go to slide 10"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-three">
+    <p class="text-one">Coming soon</p>
+    <div class="video-wrapper" aria-hidden="false">
+      <iframe width="560" height="320" src="https://www.youtube.com/embed/xopvkx6CpNs?si=uS7em5hvMDVIDe8f"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+      <div class="video-fallback">
+        <p>Embedding may be disabled — <a href="https://www.youtube.com/watch?v=xopvkx6CpNs" target="_blank"
+            rel="noopener">Watch on YouTube</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Wallpaper toggle script
+    (function () {
+      const wrapper = document.querySelector('.background');
+      const btn = document.getElementById('bg-toggle');
+      const storageKey = 'portfolio-bg-theme';
+
+      const saved = localStorage.getItem(storageKey);
+      if (saved === 'light') {
+        wrapper.classList.add('theme-light');
+        wrapper.dataset.theme = 'light';
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      function setTheme(theme) {
+        if (theme === 'light') {
+          wrapper.classList.add('theme-light');
+          wrapper.dataset.theme = 'light';
+          btn.setAttribute('aria-pressed', 'true');
+          localStorage.setItem(storageKey, 'light');
+        } else {
+          wrapper.classList.remove('theme-light');
+          wrapper.dataset.theme = 'dark';
+          btn.setAttribute('aria-pressed', 'false');
+          localStorage.setItem(storageKey, 'dark');
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        const isLight = wrapper.classList.toggle('theme-light');
+        setTheme(isLight ? 'light' : 'dark');
+      });
+    })();
+
+    // Slideshow script
+    (function () {
+      const container = document.querySelector('.slideshow');
+      if (!container) return;
+
+      const slidesWrap = container.querySelector('.slides');
+      const slides = Array.from(container.querySelectorAll('.slide'));
+      const prevBtn = container.querySelector('.prev');
+      const nextBtn = container.querySelector('.next');
+      const indicators = Array.from(container.querySelectorAll('.indicator'));
+
+      let index = 0;
+      const total = slides.length;
+      const intervalMs = 4000;
+      let timer = null;
+
+      function goTo(i) {
+        index = (i + total) % total;
+        slidesWrap.style.transform = 'translateX(' + (-index * 100) + '%)';
+        indicators.forEach((btn, idx) => btn.classList.toggle('active', idx === index));
+      }
+
+      function next() { goTo(index + 1); }
+      function prev() { goTo(index - 1); }
+
+      nextBtn.addEventListener('click', () => { next(); restart(); });
+      prevBtn.addEventListener('click', () => { prev(); restart(); });
+
+      indicators.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const i = Number(btn.dataset.slide);
+          goTo(i);
+          restart();
+        });
+      });
+
+      container.addEventListener('mouseenter', () => clearInterval(timer));
+      container.addEventListener('mouseleave', start);
+
+      document.addEventListener('keydown', (e) => {
+        if (document.activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+        if (e.key === 'ArrowRight') { next(); restart(); }
+        if (e.key === 'ArrowLeft') { prev(); restart(); }
+      });
+
+      function start() {
+        clearInterval(timer);
+        timer = setInterval(next, intervalMs);
+      }
+      function restart() { start(); }
+
+      goTo(0);
+      start();
+    })();
+  </script>
+</body>
+
+</html>
+<!-- #0f1724 rgba(255,255,255,0.04); -->

@@ -1,0 +1,279 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.banner-text{
+  position: absolute;
+  left: 50%;
+  margin-top: 7vw;
+  transform: translate(-50%, -50%); /* centers both horizontally & vertically */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 35px;
+  font-family: 'Press Start 2P', Consolas, monospace;
+}
+
+/* full-viewport background placed behind all content */
+.background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.background .bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 600ms ease;
+  opacity: 0;
+}
+/* default: dark visible */
+.background .bg-image--dark { opacity: 1; }
+/* when .theme-light class present show light image */
+.background.theme-light .bg-image--dark { opacity: 0; }
+.background.theme-light .bg-image--light { opacity: 1; }
+
+/* wallpaper toggle (top-left) */
+.bg-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 40;
+
+  /* pill dimensions */
+  width: 62px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+
+  /* background / appearance */
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .12s ease, transform .12s ease;
+  display: inline-block;
+  position: fixed;
+}
+
+/* knob */
+.bg-toggle::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  transition: transform .18s ease, background .18s ease;
+  will-change: transform;
+}
+
+/* pressed/ON state — move knob to right and change track color */
+.bg-toggle[aria-pressed="true"] {
+  background: linear-gradient(90deg, #ffd166 0%, #ff6b6b 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+.bg-toggle[aria-pressed="true"]::before {
+  transform: translateY(-50%) translateX(24px);
+}
+
+/* focus state for accessibility */
+.bg-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* small accessibility helper (visually hidden) */
+.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+
+/* ensure content stays above background */
+.banner, .block-one, .block-two, .block-three {
+  position: relative;
+  z-index: 1;
+}
+
+/* shared block base (keeps your original sizing & positioning) */
+.block-one,
+.block-two,
+.block-three {
+  top: 13vw;
+  position: absolute;
+  width: 20vw;
+  height: 20vw;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10%;
+  overflow:visible; /* allow pseudo elements to extend */
+  transition: all .5s ease;
+  cursor: pointer;
+  /* subtle inner glass so content area still visible */
+  background: rgba(255,255,255,0.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+}
+
+/* keep your original placement for the two blocks */
+.block-one { margin-top: 3.5vw; margin-left: 1vw; }
+.block-two { margin-top: 3.5vw; margin-left: 42vw; }
+/* adjusted placement for third block so it doesn't leak off the page */
+.block-three { margin-top: 3.5vw; margin-left: 79vw; }
+
+/* responsive adjustments to keep block inside viewport */
+@media (max-width: 1200px){
+  .block-three { margin-left: 65vw; }
+}
+@media (max-width: 900px){
+  .block-three { margin-left: auto; }
+}
+
+/* gradient skewed layers (main visual effect) */
+.block-one::before,
+.block-one::after,
+.block-two::before,
+.block-two::after,
+.block-three::before,
+.block-three::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 50%;
+  height: 100%;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: all 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* glow/blur layer (after) */
+.block-one::after,
+.block-two::after,
+.block-three::after{
+  filter: blur(30px);
+  opacity: .9;
+}
+
+/* per-block gradients */
+.block-one::before, .block-one::after{
+  background: linear-gradient(315deg,#ffbc00,#ff0058);
+}
+.block-two::before, .block-two::after{
+  background: linear-gradient(315deg,#03a9f4,#ff0058);
+}
+.block-three::before, .block-three::after{
+  background: linear-gradient(315deg,#4dff03,#00d0ff);
+}
+
+/* expand on hover */
+.block-one:hover::before,
+.block-one:hover::after,
+.block-two:hover::before,
+.block-two:hover::after,
+.block-three:hover::before,
+.block-three:hover::after {
+  transform: skewX(0deg);
+  left: 20px;
+  width: calc(100% - 90px);
+}
+
+/* subtle highlight overlays */
+.block-one > .shine,
+.block-two > .shine,
+.block-three > .shine {
+  position:absolute; z-index:5; inset:0; pointer-events:none;
+}
+.block-one > .shine::before,
+.block-one > .shine::after,
+.block-two > .shine::before,
+.block-two > .shine::after,
+.block-three > .shine::before,
+.block-three > .shine::after {
+  content:'';
+  position:absolute;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  border-radius:8px;
+  opacity:0;
+  transition: .2s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.block-one > .shine::before,
+.block-two > .shine::before,
+.block-three > .shine::before {
+  top:-50px; left:50px; width:0; height:0;
+}
+.block-one > .shine::after,
+.block-two > .shine::after,
+.block-three > .shine::after {
+  bottom:-50px; right:50px; width:0; height:0;
+}
+.block-one:hover > .shine::before,
+.block-two:hover > .shine::before,
+.block-three:hover > .shine::before {
+  top:-50px; left:50px; width:100px; height:100px; opacity:1;
+}
+.block-one:hover > .shine::after,
+.block-two:hover > .shine::after,
+.block-three:hover > .shine::after {
+  bottom:-50px; right:50px; width:100px; height:100px; opacity:1;
+}
+
+/* content area inside the block (if you add text later) */
+.block-one .content,
+.block-two .content,
+.block-three .content{
+  position:relative; z-index:6; padding:18px; color:#fff; text-align:center;
+  background: rgba(255,255,255,0.03); border-radius:6px;
+  transition: all .5s ease;
+}
+.block-one:hover .content,
+.block-two:hover .content,
+.block-three:hover .content {
+  transform: translateX(-20px);
+  padding: 30px;
+}
+
+/* ensure nothing else overlays pseudo elements */
+.block-one > *,
+.block-two > *,
+.block-three > * { position: relative; z-index: 6; }
+
+/* responsive fallback: stack blocks vertically on small screens */
+@media (max-width: 900px){
+  .block-one, .block-two, .block-three {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4vw;
+    width: 80vw;
+    height: 50vw;
+  }
+}
+
+/* game-style font for the banner title */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.banner > .banner-text {
+  font-family: 'Press Start 2P', Consolas, monospace;
+  letter-spacing: 1px; /* tweak for readability */
+  font-weight: 400;
+}
+
+/* if you prefer a different vibe, replace the import with Orbitron:
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+and set font-family: 'Orbitron', system-ui, sans-serif;
+*/

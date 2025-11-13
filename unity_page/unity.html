@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unity Game - Portfolio</title>
+
+  <!-- load game-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="unity.css">
+</head>
+
+<body data-theme="dark">
+  <!-- shooting stars background (kept before content so it sits behind via z-index) -->
+  <div class="stars" aria-hidden="true"></div>
+  <div class="shooting-star" style="top:20%; left:-120px;"></div>
+  <div class="shooting-star" style="top:35%; left:-200px;"></div>
+  <div class="shooting-star" style="top:50%; left:-150px;"></div>
+  <div class="shooting-star" style="top:65%; left:-180px;"></div>
+  <div class="shooting-star" style="top:80%; left:-140px;"></div>
+
+  <!-- theme toggle (top-left) -->
+  <button id="theme-toggle" class="theme-toggle" aria-pressed="false" title="Toggle day/night">
+    <span class="visually-hidden">Toggle theme</span>☼
+  </button>
+
+  <!-- home button (below theme toggle) -->
+  <a href="../home_page/homepage.html" class="home-btn" title="Go to homepage">
+    <span class="visually-hidden">Home</span>🏠
+  </a>
+
+  <div class="container">
+    <div class="title">
+      <h1>Skater Boy</h1>
+
+      <div id="unity-container">
+        <canvas id="unity-canvas"></canvas>
+      </div>
+
+      <div class="loading-bar" id="loading-bar" aria-hidden="true">
+        <div id="loading-fill" class="loading-fill"></div>
+      </div>
+
+      <div id="status" class="fallback">Loading...</div>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle script
+    (function () {
+      const body = document.body;
+      const btn = document.getElementById('theme-toggle');
+      const storageKey = 'portfolio-unity-theme';
+
+      const saved = localStorage.getItem(storageKey);
+      if (saved === 'light') {
+        body.setAttribute('data-theme', 'light');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      function setTheme(theme) {
+        if (theme === 'light') {
+          body.setAttribute('data-theme', 'light');
+          btn.setAttribute('aria-pressed', 'true');
+          localStorage.setItem(storageKey, 'light');
+        } else {
+          body.setAttribute('data-theme', 'dark');
+          btn.setAttribute('aria-pressed', 'false');
+          localStorage.setItem(storageKey, 'dark');
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        const isLight = body.getAttribute('data-theme') === 'light';
+        setTheme(isLight ? 'dark' : 'light');
+      });
+    })();
+  </script>
+</body>
+
+</html>

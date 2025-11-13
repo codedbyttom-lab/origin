@@ -13,12 +13,77 @@ html, body {
   pointer-events: none;     /* clicks pass through */
   overflow: hidden;
 }
-.background img {
+.background .bg-image {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;        /* fills viewport without distortion */
+  object-fit: cover;
   display: block;
+  transition: opacity 600ms ease;
+  opacity: 0;
 }
+/* default: dark visible */
+.background .bg-image--dark { opacity: 1; }
+/* when .theme-light class present show light image */
+.background.theme-light .bg-image--dark { opacity: 0; }
+.background.theme-light .bg-image--light { opacity: 1; }
+
+/* wallpaper toggle (top-left) */
+.bg-toggle {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 40;
+
+  /* pill dimensions */
+  width: 62px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+
+  /* background / appearance */
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .12s ease, transform .12s ease;
+  display: inline-block;
+}
+
+/* knob */
+.bg-toggle::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  transition: transform .18s ease, background .18s ease;
+  will-change: transform;
+}
+
+/* pressed/ON state — move knob to right and change track color */
+.bg-toggle[aria-pressed="true"] {
+  background: linear-gradient(90deg, #ffd166 0%, #ff6b6b 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+.bg-toggle[aria-pressed="true"]::before {
+  transform: translateY(-50%) translateX(24px);
+}
+
+/* focus state for accessibility */
+.bg-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* small accessibility helper (visually hidden) */
+.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
 
 /* content blocks sit above the background */
 .block-one {
@@ -38,7 +103,7 @@ html, body {
   box-sizing: border-box;
 }
 
-/* optional: ensure block-two also appears above background */
+/* block-two now contains the slideshow directly */
 .block-two {
   position: absolute;
   z-index: 2;
@@ -47,14 +112,20 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  
+  /* glass effect + borders */
   background-color: rgba(43, 85, 130, 0.182);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
   border-left: 1px solid rgba(255, 255, 255, 0.3);
+  
   height: 540px;
   width: 370px;
   margin: 20px;
   border-radius: 12px;
   box-sizing: border-box;
+  padding: 12px; /* add padding so slideshow has breathing room */
+  overflow: hidden; /* keep slideshow contained */
 }
 
 /* text inside block-one */
@@ -135,6 +206,146 @@ width: 70%;
   height: 100%;
   border: 0;
   display: block;
+}
+
+/* Slideshow container */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px; /* slightly smaller radius inside block-two */
+  overflow: hidden;
+  background: rgba(0,0,0,0.06);
+}
+
+/* Slides wrapper - horizontal flex row */
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 500ms cubic-bezier(.22,.9,.26,1);
+  will-change: transform;
+}
+
+/* Each slide takes full container width */
+.slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+/* Slide images */
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* keeps phone screenshots readable without cropping */
+  display: block;
+}
+
+/* Navigation buttons */
+.slideshow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(0,0,0,0.45);
+  color: #fff;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s ease;
+}
+.slideshow-btn:hover {
+  background: rgba(0,0,0,0.65);
+}
+.slideshow-btn:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+.slideshow-btn.prev { left: 12px; }
+.slideshow-btn.next { right: 12px; }
+
+/* Indicators (dots) */
+.slideshow-indicators {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 12;
+}
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s ease, box-shadow .2s ease;
+}
+.indicator:hover {
+  background: rgba(255,255,255,0.55);
+}
+.indicator.active {
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* home button (below wallpaper toggle, same pill style) */
+.home-btn {
+  position: fixed;
+  top: 54px; /* 12px (toggle top) + 32px (toggle height) + 10px gap */
+  left: 12px;
+  z-index: 40;
+
+  /* pill dimensions */
+  width: 56px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+
+  /* background / appearance */
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .12s ease, transform .12s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.home-btn:hover {
+  background: rgba(255,255,255,0.1);
+  transform: scale(1.02);
+}
+
+.home-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* Responsive adjustments */
+@media (max-width: 720px) {
+  .slideshow { max-height: 360px; }
+  .slideshow-btn { width: 38px; height: 38px; font-size: 22px; }
+  .slideshow-indicators { bottom: 8px; gap: 6px; }
+  .indicator { width: 8px; height: 8px; }
 }
 
 /* responsive adjustments */
