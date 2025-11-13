@@ -1,0 +1,154 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* full-viewport background placed behind all content */
+.background {
+  position: fixed;
+  inset: 0;                 /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  z-index: -1;              /* behind page content */
+  pointer-events: none;     /* clicks pass through */
+  overflow: hidden;
+}
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* fills viewport without distortion */
+  display: block;
+}
+
+/* content blocks sit above the background */
+.block-one {
+    margin-top: 10%;
+  z-index: 2; 
+  backdrop-filter: blur(8px);
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(43, 85, 130, 0.182);
+  width: 70%;
+  margin-left: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 28px;
+  position:absolute;
+  box-sizing: border-box;
+}
+
+/* optional: ensure block-two also appears above background */
+.block-two {
+  position: absolute;
+  z-index: 2;
+  top: 18%;
+  left: 73%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(43, 85, 130, 0.182);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  height: 540px;
+  width: 370px;
+  margin: 20px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+/* text inside block-one */
+.block-one > .text-one {
+  margin-top: 10px;
+  color: white;
+  font-size: 40px;
+  font-weight: 600;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.block-two > .text-one {
+  position: relative;
+  top: yyyyyy;
+  color: white;
+  font-size: 40px;
+  font-weight: 600;
+  display:flex;
+  justify-content: start;
+  align-items: start;
+  text-align:start;
+}
+.block-one > .text-two {
+  margin-top: 50px;
+  color: white;
+  font-weight: 400;
+  font-size: 18px;
+  padding-left: 50px;
+  padding-right: 50px;
+  margin-top: -20px;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.block-three {
+  position: relative;
+
+  z-index: 2;
+  top: 40vw;
+  margin-left: 10px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(43, 85, 130, 0.182);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+width: 70%;
+
+  border-radius: 20px;
+  box-sizing: border-box;
+}
+
+/* block-three video: responsive, same-title styling as .text-one */
+.block-three .text-one{
+  color: #ffffff;
+  font-size: 40px;    /* matches .text-one in block-one */
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.block-three .video-wrapper{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.block-three .video-wrapper iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* responsive adjustments */
+@media (max-width: 900px) {
+  .block-one {
+    width: 92%;
+    margin: 40px auto;
+    min-height: 320px;
+    padding: 20px;
+  }
+  .block-one > .text-one { font-size: 28px; }
+  .block-two> .text-one {font-size: 28px;}
+  .block-three> .text-one {font-size: 28px;}
+
+  .block-one > .text-two { padding-left: 24px; padding-right: 24px; font-size: 16px; margin-top: 0; }
+  .block-two { position: relative; left: auto; top: auto; width: 92%; height: auto; margin: 20px auto; }
+}

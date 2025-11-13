@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flutter Page</title>
+  <link rel="stylesheet" href="flutter_page/flutter.css">
+</head>
+
+<body>
+
+  <!-- background stays as a separate element behind content -->
+  <div class="background" aria-hidden="true">
+    <img src="images/background/background.png" alt="Background Image" class="bg-image">
+  </div>
+
+  <!-- content sits on top of background -->
+  <div class="block-one">
+    <p class="text-one">About Project</p>
+    <p class="text-two">
+      VoiceCare is an innovative mobile healthcare application I developed to support visually impaired individuals in
+      managing their healthcare needs independently. The system leverages voice technology to remove visual barriers,
+      allowing users to perform essential tasks such as registration, login, and appointment booking entirely through
+      Speech-to-Text (STT) and Text-to-Speech (TTS) interaction. Built with Flutter and powered by Firebase Cloud
+      Services, VoiceCare provides secure authentication, real-time data storage, and seamless synchronization between
+      user and admin functions.
+      The project focuses on accessibility-first design, featuring audio prompts, glowing focus indicators, and
+      intelligent voice feedback to ensure a fully navigable experience without sight. By bridging healthcare and
+      assistive technology, VoiceCare not only enhances digital inclusion but also aligns with the principles of
+      universal design and equal access proving that technology can empower independence, dignity, and confidence for
+      visually impaired users.
+    </p>
+  </div>
+
+  <div class="block-two">
+    <!-- additional content -->
+    <div class="text-one">
+      <p> add a slideshow </p>
+    </div>
+  </div>
+
+  <div class="block-three">
+    <p class="text-one">Coming soon</p>
+    <div class="video-wrapper" aria-hidden="false">
+      <iframe width="560" height="320" src="https://www.youtube.com/embed/xopvkx6CpNs?si=uS7em5hvMDVIDe8f"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+      <div class="video-fallback">
+        <p>Embedding may be disabled — <a href="https://www.youtube.com/watch?v=xopvkx6CpNs" target="_blank"
+            rel="noopener">Watch on YouTube</a></p>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+<!-- #0f1724 rgba(255,255,255,0.04); -->
