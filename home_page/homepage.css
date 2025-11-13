@@ -14,6 +14,7 @@ html, body {
   color: #fff;
   font-size: clamp(1rem, 3.5vw, 2.2rem); /* responsive font size */
   font-family: 'Press Start 2P', Consolas, monospace;
+  z-index: 50; /* ensure banner stays above blocks */
 }
 
 /* full-viewport background placed behind all content */
@@ -284,18 +285,18 @@ html, body {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 8vh;
-    width: 60vw;
-    height: 60vw;
-    max-width: 400px;
-    max-height: 400px;
+    margin-top: 6vh;
+    width: 50vw;
+    height: 50vw;
+    max-width: 300px;
+    max-height: 300px;
   }
 
-  .block-one { margin-top: 15vh; }
+  .block-one { margin-top: 12vh; }
   
   .banner-text {
     font-size: clamp(0.8rem, 2.5vw, 1.5rem);
-    margin-top: 10vh;
+    margin-top: 7vh;
   }
 }
 
@@ -303,12 +304,15 @@ html, body {
   .block-one,
   .block-two,
   .block-three {
-    width: 70vw;
-    height: 70vw;
-    margin-top: 6vh;
+    width: 55vw;
+    height: 55vw;
+    margin-top: 5vh;
   }
+
+  .block-one { margin-top: 10vh; }
 
   .banner-text {
     font-size: clamp(0.7rem, 2vw, 1.2rem);
+    margin-top: 5vh;
   }
 }

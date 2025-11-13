@@ -82,19 +82,20 @@
 
       <button class="slideshow-btn prev" aria-label="Previous slide">‹</button>
       <button class="slideshow-btn next" aria-label="Next slide">›</button>
+    </div>
 
-      <div class="slideshow-indicators" role="tablist" aria-label="Slide indicators">
-        <button class="indicator" data-slide="0" aria-label="Go to slide 1"></button>
-        <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
-        <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
-        <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
-        <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
-        <button class="indicator" data-slide="5" aria-label="Go to slide 6"></button>
-        <button class="indicator" data-slide="6" aria-label="Go to slide 7"></button>
-        <button class="indicator" data-slide="7" aria-label="Go to slide 8"></button>
-        <button class="indicator" data-slide="8" aria-label="Go to slide 9"></button>
-        <button class="indicator" data-slide="9" aria-label="Go to slide 10"></button>
-      </div>
+    <!-- Moved indicators outside slideshow, inside block-two -->
+    <div class="slideshow-indicators" role="tablist" aria-label="Slide indicators">
+      <button class="indicator" data-slide="0" aria-label="Go to slide 1"></button>
+      <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+      <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+      <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+      <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
+      <button class="indicator" data-slide="5" aria-label="Go to slide 6"></button>
+      <button class="indicator" data-slide="6" aria-label="Go to slide 7"></button>
+      <button class="indicator" data-slide="7" aria-label="Go to slide 8"></button>
+      <button class="indicator" data-slide="8" aria-label="Go to slide 9"></button>
+      <button class="indicator" data-slide="9" aria-label="Go to slide 10"></button>
     </div>
   </div>
 
@@ -156,7 +157,7 @@
       const slides = Array.from(container.querySelectorAll('.slide'));
       const prevBtn = container.querySelector('.prev');
       const nextBtn = container.querySelector('.next');
-      const indicators = Array.from(container.querySelectorAll('.indicator'));
+      const indicators = Array.from(document.querySelectorAll('.indicator')); // Changed to document instead of container
 
       let index = 0;
       const total = slides.length;
