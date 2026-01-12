@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python — Intent Recognition</title>
+  <link rel="stylesheet" href="python.css">
+</head>
+
+<body>
+
+  <!-- background stays as a separate element behind content -->
+  <div class="background" aria-hidden="true" data-theme="dark">
+    <img class="bg-image bg-image--dark" src="backgrounds/dark_background.png" alt="">
+    <img class="bg-image bg-image--light" src="backgrounds/light_background.png" alt="">
+  </div>
+
+  <!-- wallpaper toggle (top-left) -->
+  <button id="bg-toggle" class="bg-toggle" aria-pressed="false" title="Toggle wallpaper">
+    <span class="visually-hidden">Toggle wallpaper</span>☼
+  </button>
+
+  <!-- home button (below wallpaper toggle) -->
+  <a href="../home_page/homepage.html" class="home-btn" title="Go to homepage">
+    <span class="visually-hidden">Home</span>🏠
+  </a>
+
+  <main class="page">
+    <header class="hero">
+      <p class="kicker">Python • NLP • Intent Classification</p>
+      <h1 class="title">Intent Recognition Algorithm</h1>
+      <p class="subtitle">
+        A voice-navigation intent recognizer that predicts what a user means (not just what they said), selecting the
+        most confident output across multiple models to make interaction more flexible and reliable.
+      </p>
+
+      <div class="meta" role="list">
+        <div class="meta-chip" role="listitem"><span class="meta-label">Focus</span><span class="meta-value">Voice
+            UX</span></div>
+        <div class="meta-chip" role="listitem"><span class="meta-label">Type</span><span class="meta-value">ML
+            Pipeline</span></div>
+        <div class="meta-chip" role="listitem"><span class="meta-label">Output</span><span class="meta-value">User
+            Intent</span></div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#demo">Watch the demo</a>
+        
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Project details">
+      <section class="card" id="highlights">
+        <h2 class="card-title">What it does</h2>
+        <p class="card-body">
+          This project improves voice-based navigation by allowing the system to understand a user’s intent without
+          requiring exact spoken commands. The algorithm analyzes spoken input and predicts actions like booking,
+          viewing, or rescheduling an appointment.
+        </p>
+
+        <ul class="bullets">
+          <li>Combines multiple models and selects the most confident prediction.</li>
+          <li>Reduces rigid, hardcoded navigation flows.</li>
+          <li>Designed for natural, accessible voice interaction.</li>
+        </ul>
+
+        <div class="tags" aria-label="Keywords">
+          <span class="tag">classification</span>
+          <span class="tag">confidence routing</span>
+          <span class="tag">intent mapping</span>
+          <span class="tag">voice interfaces</span>
+        </div>
+      </section>
+
+      <section class="card" id="demo">
+        <h2 class="card-title">Demo showcase</h2>
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/oUmwtvSHpLY?si=6LFo8uIcMAoKks-_" title="Intent recognition demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p class="muted">
+          Embedding may be disabled —
+          <a href="https://youtu.be/oUmwtvSHpLY?si=u3zMV2i_utupx_ic" target="_blank" rel="noopener">watch on
+            YouTube</a>.
+        </p>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Built to make voice navigation feel less brittle and more human.</p>
+    </footer>
+  </main>
+
+  <script>
+    // Wallpaper toggle script
+    (function () {
+      const wrapper = document.querySelector('.background');
+      const btn = document.getElementById('bg-toggle');
+      const storageKey = 'portfolio-bg-theme';
+
+      const saved = localStorage.getItem(storageKey);
+      if (saved === 'light') {
+        wrapper.classList.add('theme-light');
+        wrapper.dataset.theme = 'light';
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      function setTheme(theme) {
+        if (theme === 'light') {
+          wrapper.classList.add('theme-light');
+          wrapper.dataset.theme = 'light';
+          btn.setAttribute('aria-pressed', 'true');
+          localStorage.setItem(storageKey, 'light');
+        } else {
+          wrapper.classList.remove('theme-light');
+          wrapper.dataset.theme = 'dark';
+          btn.setAttribute('aria-pressed', 'false');
+          localStorage.setItem(storageKey, 'dark');
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        const isLight = wrapper.classList.toggle('theme-light');
+        setTheme(isLight ? 'light' : 'dark');
+      });
+    })();
+  </script>
+</body>
+
+</html>
+<!-- #0f1724 rgba(255,255,255,0.04); -->
