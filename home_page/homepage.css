@@ -1,318 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 html, body {
-  height: 100%;
-  margin: 0;
+scrollbar-width: thin;
+margin: 0;
+min-height: 100%;
+}
+body{
+
+background-size:cover;
+background-repeat: no-repeat;
+background-image: url(backgrounds/background2.png);
+align-content: center;
+position: absolute;
+justify-self: center;
+width: 100%;
+/* aspect-ratio: 10/5; */
+
+
 }
 
-.banner-text{
-  position: absolute;
-  left: 50%;
-  margin-top: 7vw;
-  transform: translate(-50%, -50%);
+
+.wallpaper-block{
+margin: 2%;
+justify-content:space-between;
+justify-items: start;
+display:flex;
+z-index: 0;
+align-items: center;
+background-color: rgba(9, 9, 9, 0.34);
+backdrop-filter: blur(1.5px);
+
+/* height: 90%;
+width: 100%; */
+width:auto;
+aspect-ratio: 10/2;
+
+border-radius: 45px;
+border: 1px solid rgba(255, 255, 255, 0.18);
+padding: 0.95%;
+
+
+
+}
+
+/* .text{
+    font-family: "DM Serif Text", serif;
+    font-size: 1.5rem;
+  font-weight: 400;
+  font-style: normal;
+  color: white;
+  overflow: hidden;
+  border-right: .15em solid rgb(241, 240, 238); 
+  white-space: nowrap;
   display: flex;
+  justify-self: center;
+  max-width: 100%;
+  margin: 0;
+  letter-spacing: .15em; 
+  animation: 
+   typing 4s steps(43
+   , end), 
+    blink-caret .75s step-end infinite;
+}
+
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 43ch }
+}
+
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+} */
+
+.wallpaper-block> .csharp-block{
+  
+align-content: center;
+align-items: center;
+position: relative;
+text-align: center;
+width: 20vw;
+aspect-ratio: 1/1;
+z-index: 1;
+border-radius: 45px;
+overflow: hidden;
+ 
+
+
+}
+.wallpaper-block> .csharp-block> .csharp-logo img{
+max-width: 80%;
+max-height: 80%;
+object-fit: contain;
+height: auto;
+width: auto;
+
+
+}
+.wallpaper-block> .python-block{
+
+align-content: center;
+align-items: center;
+position: relative;
+text-align: center;
+width: 20vw;
+aspect-ratio: 1/1;
+
+z-index: 1;
+border-radius: 45px;
+overflow: hidden;
+ 
+
+
+
+}
+.wallpaper-block> .python-block> .python-logo img{
+max-width: 80%;
+max-height: 80%;
+object-fit: contain;
+height: auto;
+width: auto;
+
+
+}
+.wallpaper-block> .flutter-block{
+
+align-content: center;
+align-items: center;
+position: relative;
+text-align: center;
+width: 20vw;
+aspect-ratio: 1/1;
+
+z-index: 1;
+border-radius: 45px;
+overflow: hidden;
+ 
+
+
+
+}
+.wallpaper-block> .flutter-block> .flutter-logo img{
+max-width: 80%;
+max-height: 80%;
+object-fit: contain;
+height: auto;
+width: auto;
+
+
+}
+
+/* Make the whole tile clickable (anchors wrap the images in the HTML) */
+.wallpaper-block a{
+  display: flex;
+  width: 100%;
+  height: 100%;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-size: clamp(1rem, 3.5vw, 2.2rem); /* responsive font size */
-  font-family: 'Press Start 2P', Consolas, monospace;
-  z-index: 50; /* ensure banner stays above blocks */
-}
-
-/* full-viewport background placed behind all content */
-.background {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
-.background .bg-image {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: opacity 600ms ease;
-  opacity: 0;
-}
-/* default: dark visible */
-.background .bg-image--dark { opacity: 1; }
-/* when .theme-light class present show light image */
-.background.theme-light .bg-image--dark { opacity: 0; }
-.background.theme-light .bg-image--light { opacity: 1; }
-
-/* wallpaper toggle (top-left) */
-.bg-toggle {
-  position: fixed;
-  top: 1.2vh;
-  left: 1.2vw;
-  z-index: 40;
-
-  /* pill dimensions */
-  width: clamp(48px, 5vw, 62px);
-  height: clamp(26px, 3vh, 32px);
-  padding: 0;
-  border: 0;
-  border-radius: 999px;
-
-  /* background / appearance */
-  background: rgba(255,255,255,0.06);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
-  cursor: pointer;
-  transition: background .2s ease, box-shadow .12s ease, transform .12s ease;
-  display: inline-block;
-}
-
-/* knob */
-.bg-toggle::before {
-  content: "";
-  position: absolute;
-  left: 0.4vw;
-  top: 50%;
-  transform: translateY(-50%);
-  width: clamp(20px, 2.2vw, 24px);
-  height: clamp(20px, 2.2vw, 24px);
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
-  transition: transform .18s ease, background .18s ease;
-  will-change: transform;
-}
-
-/* pressed/ON state — move knob to right and change track color */
-.bg-toggle[aria-pressed="true"] {
-  background: linear-gradient(90deg, #ffd166 0%, #ff6b6b 100%);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
-}
-.bg-toggle[aria-pressed="true"]::before {
-  transform: translateY(-50%) translateX(2vw);
-}
-
-/* focus state for accessibility */
-.bg-toggle:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
-}
-
-/* small accessibility helper (visually hidden) */
-.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
-
-/* ensure content stays above background */
-.banner, .block-one, .block-two, .block-three {
-  position: relative;
-  z-index: 1;
-}
-
-/* shared block base */
-.block-one,
-.block-two,
-.block-three {
-  top: 13vw;
-  position: absolute;
-  width: 20vw;
-  height: 20vw;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:10%;
-  overflow:visible;
-  transition: all .5s ease;
-  cursor: pointer;
-  background: rgba(255,255,255,0.02);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-  backdrop-filter: blur(8px);
-}
-
-/* block positioning */
-.block-one { margin-top: 3.5vw; margin-left: 1vw; }
-.block-two { margin-top: 3.5vw; margin-left: 40vw; }
-.block-three { margin-top: 3.5vw; margin-left: 76vw; }
-
-/* gradient skewed layers */
-.block-one::before,
-.block-one::after,
-.block-two::before,
-.block-two::after,
-.block-three::before,
-.block-three::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 25%;
-  width: 50%;
-  height: 100%;
-  border-radius: 8px;
-  transform: skewX(15deg);
-  transition: all 0.5s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* glow/blur layer */
-.block-one::after,
-.block-two::after,
-.block-three::after{
-  filter: blur(30px);
-  opacity: .9;
-}
-
-/* per-block gradients */
-.block-one::before, .block-one::after{
-  background: linear-gradient(315deg,#ffbc00,#ff0058);
-}
-.block-two::before, .block-two::after{
-  background: linear-gradient(315deg,#03a9f4,#ff0058);
-}
-.block-three::before, .block-three::after{
-  background: linear-gradient(315deg,#4dff03,#00d0ff);
-}
-
-/* expand on hover */
-.block-one:hover::before,
-.block-one:hover::after,
-.block-two:hover::before,
-.block-two:hover::after,
-.block-three:hover::before,
-.block-three:hover::after {
-  transform: skewX(0deg);
-  left: 10%;
-  width: 80%;
-}
-
-/* subtle highlight overlays */
-.block-one > .shine,
-.block-two > .shine,
-.block-three > .shine {
-  position:absolute; z-index:5; inset:0; pointer-events:none;
-}
-.block-one > .shine::before,
-.block-one > .shine::after,
-.block-two > .shine::before,
-.block-two > .shine::after,
-.block-three > .shine::before,
-.block-three > .shine::after {
-  content:'';
-  position:absolute;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-  border-radius:8px;
-  opacity:0;
-  transition: .2s;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-}
-.block-one > .shine::before,
-.block-two > .shine::before,
-.block-three > .shine::before {
-  top: -25%; left: 25%; width:0; height:0;
-}
-.block-one > .shine::after,
-.block-two > .shine::after,
-.block-three > .shine::after {
-  bottom: -25%; right: 25%; width:0; height:0;
-}
-.block-one:hover > .shine::before,
-.block-two:hover > .shine::before,
-.block-three:hover > .shine::before {
-  top: -25%; left: 25%; width: 50%; height: 50%; opacity:1;
-}
-.block-one:hover > .shine::after,
-.block-two:hover > .shine::after,
-.block-three:hover > .shine::after {
-  bottom: -25%; right: 25%; width: 50%; height: 50%; opacity:1;
-}
-
-/* content area inside the block */
-.block-one .content,
-.block-two .content,
-.block-three .content{
-  position:relative; z-index:6; padding: 2%; color:#fff; text-align:center;
-  background: rgba(255,255,255,0.03); border-radius:6px;
-  transition: all .5s ease;
-}
-.block-one:hover .content,
-.block-two:hover .content,
-.block-three:hover .content {
-  transform: translateX(-10%);
-  padding: 4%;
-}
-
-/* ensure nothing else overlays pseudo elements */
-.block-one > *,
-.block-two > *,
-.block-three > * { position: relative; z-index: 6; }
-
-/* Images inside blocks - responsive sizing */
-.profile-pic,
-.csharp-logo,
-.flutter-logo,
-.unity-logo {
-  max-width: 70%;
-  max-height: 70%;
-  object-fit: contain;
-}
-
-/* make the link wrappers behave like the old blocks */
-.block-two-link,
-.block-three-link {
-  display: contents;
   text-decoration: none;
 }
-.block-two-link .block-two,
-.block-three-link .block-three {
-  cursor: pointer;
-}
-.block-two-link .block-two img,
-.block-three-link .block-three img {
-  cursor: pointer;
-}
 
-/* game-style font for the banner title */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-.banner > .banner-text {
-  font-family: 'Press Start 2P', Consolas, monospace;
-  letter-spacing: 0.1em;
-  font-weight: 400;
+/* Glass effect for the 3 logo tiles (not the long container) */
+.wallpaper-block> .csharp-block,
+.wallpaper-block> .python-block,
+.wallpaper-block> .flutter-block{
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.18), rgba(12, 12, 12, 0.352));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.30);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
-/* Responsive: stack blocks vertically on smaller screens */
-@media (max-width: 900px) {
-  .block-one,
-  .block-two,
-  .block-three {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 6vh;
-    width: 50vw;
-    height: 50vw;
-    max-width: 300px;
-    max-height: 300px;
-  }
-
-  .block-one { margin-top: 12vh; }
-  
-  .banner-text {
-    font-size: clamp(0.8rem, 2.5vw, 1.5rem);
-    margin-top: 7vh;
-  }
+.wallpaper-block> .csharp-block:hover,
+.wallpaper-block> .python-block:hover,
+.wallpaper-block> .flutter-block:hover,
+.wallpaper-block> .csharp-block:focus-within,
+.wallpaper-block> .python-block:focus-within,
+.wallpaper-block> .flutter-block:focus-within{
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.40);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.07));
 }
 
-@media (max-width: 480px) {
-  .block-one,
-  .block-two,
-  .block-three {
-    width: 55vw;
-    height: 55vw;
-    margin-top: 5vh;
-  }
+/* Small polish: make the logo pop a bit */
+.wallpaper-block img{
+  transition: transform 160ms ease, filter 160ms ease;
+}
 
-  .block-one { margin-top: 10vh; }
+.wallpaper-block> .csharp-block:hover img,
+.wallpaper-block> .python-block:hover img,
+.wallpaper-block> .flutter-block:hover img{
+  transform: scale(1.06);
+  filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.35));
+}
 
-  .banner-text {
-    font-size: clamp(0.7rem, 2vw, 1.2rem);
-    margin-top: 5vh;
+@media (prefers-reduced-motion: reduce){
+  .wallpaper-block> .csharp-block,
+  .wallpaper-block> .python-block,
+  .wallpaper-block> .flutter-block,
+  .wallpaper-block img{
+    transition: none;
   }
 }
+

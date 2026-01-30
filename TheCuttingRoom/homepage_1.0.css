@@ -1,0 +1,406 @@
+
+.banner-text{
+  position: absolute;
+  left: 50%;
+  margin-top: 7vw;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: clamp(1rem, 3.5vw, 2.2rem); /* responsive font size */
+  font-family: 'Press Start 2P', Consolas, monospace;
+  z-index: 50; /* ensure banner stays above blocks */
+}
+
+/* full-viewport background placed behind all content */
+.background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.background .bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 600ms ease;
+  opacity: 0;
+}
+/* default: dark visible */
+.background .bg-image--dark { opacity: 1; }
+/* when .theme-light class present show light image */
+.background.theme-light .bg-image--dark { opacity: 0; }
+.background.theme-light .bg-image--light { opacity: 1; }
+
+/* wallpaper toggle (top-left) */
+.bg-toggle {
+  position: fixed;
+  top: 1.2vh;
+  left: 1.2vw;
+  z-index: 40;
+
+  /* pill dimensions */
+  width: clamp(48px, 5vw, 62px);
+  height: clamp(26px, 3vh, 32px);
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+
+  /* background / appearance */
+  background: rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: background .2s ease, box-shadow .12s ease, transform .12s ease;
+  display: inline-block;
+}
+
+/* knob */
+.bg-toggle::before {
+  content: "";
+  position: absolute;
+  left: 0.4vw;
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(20px, 2.2vw, 24px);
+  height: clamp(20px, 2.2vw, 24px);
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  transition: transform .18s ease, background .18s ease;
+  will-change: transform;
+}
+
+/* pressed/ON state — move knob to right and change track color */
+.bg-toggle[aria-pressed="true"] {
+  background: linear-gradient(90deg, #ffd166 0%, #ff6b6b 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+}
+.bg-toggle[aria-pressed="true"]::before {
+  transform: translateY(-50%) translateX(2vw);
+}
+
+/* focus state for accessibility */
+.bg-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+}
+
+/* small accessibility helper (visually hidden) */
+.visually-hidden { position: absolute !important; height:1px; width:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); white-space:nowrap; }
+
+/* ensure content stays above background */
+.banner, .block-one, .block-two, .block-three {
+  position: relative;
+  z-index: 1;
+}
+
+/* shared block base */
+.block-one,
+.block-two,
+.block-three {
+  top: 13vw;
+  position: absolute;
+  width: 20vw;
+  height: 20vw;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10%;
+  overflow:visible;
+  transition: all .5s ease;
+  cursor: pointer;
+  background: rgba(255,255,255,0.02);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
+}
+
+/* block positioning */
+.block-one { margin-top: 3.5vw; margin-left: 1vw; }
+.block-two { margin-top: 3.5vw; margin-left: 40vw; }
+.block-three { margin-top: 3.5vw; margin-left: 76vw; }
+
+/* gradient skewed layers */
+.block-one::before,
+.block-one::after,
+.block-two::before,
+.block-two::after,
+.block-three::before,
+.block-three::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 50%;
+  height: 100%;
+  border-radius: 8px;
+  transform: skewX(15deg);
+  transition: all 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* glow/blur layer */
+.block-one::after,
+.block-two::after,
+.block-three::after{
+  filter: blur(30px);
+  opacity: .9;
+}
+
+/* per-block gradients */
+.block-one::before, .block-one::after{
+  background: linear-gradient(315deg,#ffbc00,#ff0058);
+}
+.block-two::before, .block-two::after{
+  background: linear-gradient(315deg,#03a9f4,#ff0058);
+}
+.block-three::before, .block-three::after{
+  background: linear-gradient(315deg,#4dff03,#00d0ff);
+}
+
+/* expand on hover */
+.block-one:hover::before,
+.block-one:hover::after,
+.block-two:hover::before,
+.block-two:hover::after,
+.block-three:hover::before,
+.block-three:hover::after {
+  transform: skewX(0deg);
+  left: 10%;
+  width: 80%;
+}
+
+/* subtle highlight overlays */
+.block-one > .shine,
+.block-two > .shine,
+.block-three > .shine {
+  position:absolute; z-index:5; inset:0; pointer-events:none;
+}
+.block-one > .shine::before,
+.block-one > .shine::after,
+.block-two > .shine::before,
+.block-two > .shine::after,
+.block-three > .shine::before,
+.block-three > .shine::after {
+  content:'';
+  position:absolute;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  border-radius:8px;
+  opacity:0;
+  transition: .2s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.block-one > .shine::before,
+.block-two > .shine::before,
+.block-three > .shine::before {
+  top: -25%; left: 25%; width:0; height:0;
+}
+.block-one > .shine::after,
+.block-two > .shine::after,
+.block-three > .shine::after {
+  bottom: -25%; right: 25%; width:0; height:0;
+}
+.block-one:hover > .shine::before,
+.block-two:hover > .shine::before,
+.block-three:hover > .shine::before {
+  top: -25%; left: 25%; width: 50%; height: 50%; opacity:1;
+}
+.block-one:hover > .shine::after,
+.block-two:hover > .shine::after,
+.block-three:hover > .shine::after {
+  bottom: -25%; right: 25%; width: 50%; height: 50%; opacity:1;
+}
+
+/* content area inside the block */
+.block-one .content,
+.block-two .content,
+.block-three .content{
+  position:relative; z-index:6; padding: 2%; color:#fff; text-align:center;
+  background: rgba(255,255,255,0.03); border-radius:6px;
+  transition: all .5s ease;
+}
+.block-one:hover .content,
+.block-two:hover .content,
+.block-three:hover .content {
+  transform: translateX(-10%);
+  padding: 4%;
+}
+
+/* ensure nothing else overlays pseudo elements */
+.block-one > *,
+.block-two > *,
+.block-three > * { position: relative; z-index: 6; }
+
+/* Images inside blocks - responsive sizing */
+.profile-pic,
+.csharp-logo,
+.flutter-logo,
+.unity-logo {
+  max-width: 70%;
+  max-height: 70%;
+  object-fit: contain;
+}
+
+/* make the link wrappers behave like the old blocks */
+.block-two-link,
+.block-three-link {
+  display: contents;
+  text-decoration: none;
+}
+.block-two-link .block-two,
+.block-three-link .block-three {
+  cursor: pointer;
+}
+.block-two-link .block-two img,
+.block-three-link .block-three img {
+  cursor: pointer;
+}
+
+/* game-style font for the banner title */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.banner > .banner-text {
+  font-family: 'Press Start 2P', Consolas, monospace;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+}
+
+/* Responsive: stack blocks vertically on smaller screens */
+@media (max-width: 900px) {
+  .block-one,
+  .block-two,
+  .block-three {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6vh;
+    width: 50vw;
+    height: 50vw;
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .block-one { margin-top: 12vh; }
+  
+  .banner-text {
+    font-size: clamp(0.8rem, 2.5vw, 1.5rem);
+    margin-top: 7vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .block-one,
+  .block-two,
+  .block-three {
+    width: 55vw;
+    height: 55vw;
+    margin-top: 5vh;
+  }
+
+  .block-one { margin-top: 10vh; }
+
+  .banner-text {
+    font-size: clamp(0.7rem, 2vw, 1.2rem);
+    margin-top: 5vh;
+  }
+}
+
+/*homepage.html
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projects</title>
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/projects.css">
+  <link rel="stylesheet" href="homepage.css">
+
+  <!-- load game-style font -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- background with dark + light images for crossfade -->
+  <div class="background" aria-hidden="true" data-theme="dark">
+    <img class="bg-image bg-image--dark" src="backgrounds/dark_background.png" alt="Background Image">
+    <img class="bg-image bg-image--light" src="backgrounds/light_background.png" alt="Light Background Image">
+  </div>
+
+  <!-- wallpaper toggle (top-left) -->
+  <button id="bg-toggle" class="bg-toggle" aria-pressed="false" title="Toggle wallpaper">
+    <span class="visually-hidden">Toggle wallpaper</span>☼
+  </button>
+
+  <div class="banner">
+    <div class="banner-text">
+      <h1>CODEDBYTTOM</h1>
+    </div>
+  </div>
+
+  <div class="block-one">
+    <a href="https://thando13-001-site1.anytempurl.com" class="block-one-link">
+      <img src="assets/c.png" alt="C-Sharp Logo" class="csharp-logo">
+  </div>
+
+  <!-- simplified link: wrap block-two in anchor -->
+  <a href="../flutter_page/flutter.html" class="block-two-link">
+    <div class="block-two">
+      <img src="assets/f.png" alt="Flutter Logo" class="flutter-logo">
+    </div>
+  </a>
+
+  <!-- link block-three to unity page -->
+  <a href="../python_page/python.html" class="block-three-link">
+    <div class="block-three">
+      <img src="assets/p.png" alt="Python Logo" class="python-logo">
+    </div>
+  </a>
+
+  <script>
+    (function () {
+      const wrapper = document.querySelector('.background');
+      const btn = document.getElementById('bg-toggle');
+      const storageKey = 'portfolio-bg-theme-home';
+
+      // restore saved theme
+      const saved = localStorage.getItem(storageKey);
+      if (saved === 'light') {
+        wrapper.classList.add('theme-light');
+        wrapper.dataset.theme = 'light';
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      function setTheme(theme) {
+        if (theme === 'light') {
+          wrapper.classList.add('theme-light');
+          wrapper.dataset.theme = 'light';
+          btn.setAttribute('aria-pressed', 'true');
+          localStorage.setItem(storageKey, 'light');
+        } else {
+          wrapper.classList.remove('theme-light');
+          wrapper.dataset.theme = 'dark';
+          btn.setAttribute('aria-pressed', 'false');
+          localStorage.setItem(storageKey, 'dark');
+        }
+      }
+
+      btn.addEventListener('click', () => {
+        const isLight = wrapper.classList.toggle('theme-light');
+        setTheme(isLight ? 'light' : 'dark');
+      });
+    })();
+  </script>
+</body>
+
+</html>
+*/

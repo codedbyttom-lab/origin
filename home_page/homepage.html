@@ -1,89 +1,64 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Projects</title>
-  <link rel="stylesheet" href="CSS/style.css">
-  <link rel="stylesheet" href="CSS/projects.css">
-  <link rel="stylesheet" href="homepage.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HomePage</title>
 
-  <!-- load game-style font -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Jersey+10&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="homepage.css" />
 </head>
 
 <body>
-  <!-- background with dark + light images for crossfade -->
-  <div class="background" aria-hidden="true" data-theme="dark">
-    <img class="bg-image bg-image--dark" src="backgrounds/dark_background.png" alt="Background Image">
-    <img class="bg-image bg-image--light" src="backgrounds/light_background.png" alt="Light Background Image">
+  <!-- <div class="typed-text">
+    <p class="text"> Welcome, I Hope To Hear From You Soon! :)</p>
+  </div> -->
+  <div class="wallpaper-block">
+
+    <div class="csharp-block">
+      <div class="csharp-logo">
+        <a href="https://thando13-001-site1.anytempurl.com" class="block-one-link">
+          <img src="assets/csharp.png" alt="csharp-logo" class="csharp-logo">
+        </a>
+      </div>
+
+    </div>
+
+    <div class="python-block">
+      <div class="python-logo">
+        <a href="../python_page/python.html" class="block-three-link">
+          <img src="assets/python.png" alt="python-logo" class="csharp-logo">
+        </a>
+      </div>
+
+    </div>
+
+    <div class="flutter-block">
+      <div class="flutter-logo">
+        <a href="../flutter_page/flutter.html" class="block-two-link">
+          <img src="assets/flutter.png" alt="flutter-logo" class="csharp-logo">
+        </a>
+      </div>
+
+    </div>
+
   </div>
 
-  <!-- wallpaper toggle (top-left) -->
-  <button id="bg-toggle" class="bg-toggle" aria-pressed="false" title="Toggle wallpaper">
-    <span class="visually-hidden">Toggle wallpaper</span>☼
-  </button>
-
-  <div class="banner">
-    <div class="banner-text">
-      <h1>CODEDBYTTOM</h1>
-    </div>
-  </div>
-
-  <div class="block-one">
-    <a href="https://thando13-001-site1.anytempurl.com" class="block-one-link">
-      <img src="assets/c.png" alt="C-Sharp Logo" class="csharp-logo">
-  </div>
-
-  <!-- simplified link: wrap block-two in anchor -->
-  <a href="../flutter_page/flutter.html" class="block-two-link">
-    <div class="block-two">
-      <img src="assets/f.png" alt="Flutter Logo" class="flutter-logo">
-    </div>
-  </a>
-
-  <!-- link block-three to unity page -->
-  <a href="../python_page/python.html" class="block-three-link">
-    <div class="block-three">
-      <img src="assets/p.png" alt="Python Logo" class="python-logo">
-    </div>
-  </a>
-
-  <script>
-    (function () {
-      const wrapper = document.querySelector('.background');
-      const btn = document.getElementById('bg-toggle');
-      const storageKey = 'portfolio-bg-theme-home';
-
-      // restore saved theme
-      const saved = localStorage.getItem(storageKey);
-      if (saved === 'light') {
-        wrapper.classList.add('theme-light');
-        wrapper.dataset.theme = 'light';
-        btn.setAttribute('aria-pressed', 'true');
-      }
-
-      function setTheme(theme) {
-        if (theme === 'light') {
-          wrapper.classList.add('theme-light');
-          wrapper.dataset.theme = 'light';
-          btn.setAttribute('aria-pressed', 'true');
-          localStorage.setItem(storageKey, 'light');
-        } else {
-          wrapper.classList.remove('theme-light');
-          wrapper.dataset.theme = 'dark';
-          btn.setAttribute('aria-pressed', 'false');
-          localStorage.setItem(storageKey, 'dark');
-        }
-      }
-
-      btn.addEventListener('click', () => {
-        const isLight = wrapper.classList.toggle('theme-light');
-        setTheme(isLight ? 'light' : 'dark');
-      });
-    })();
-  </script>
 </body>
+
+
+
+
+
+
+
+
+
+
 
 </html>
