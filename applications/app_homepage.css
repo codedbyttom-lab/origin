@@ -19,6 +19,32 @@ a {
   text-decoration: none;
 }
 
+.home-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 20;
+  min-width: 62px;
+  height: 34px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.home-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.62);
+  outline-offset: 4px;
+}
+
 .hero {
   padding: 56px 5vw 18px;
   text-align: center;
