@@ -166,6 +166,10 @@ body {
 .container .bank-tile::after {
   background: linear-gradient(315deg, #3f0202, #9b111e);
 }
+.container .movie-tile::before,
+.container .movie-tile::after {
+  background: linear-gradient(315deg, #3a7915, #407602);
+}
 
 .container .box span {
   display: block;
